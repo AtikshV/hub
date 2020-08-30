@@ -6,14 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>The Hub</title>
     <!-- Bootstrap core CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <!-- Animate CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
-    <meta name="theme-color" content="#563d7c">
-
     <!-- Custom styles for this template -->
     <link href="style.css" rel="stylesheet">
+    <meta name="theme-color" content="#563d7c">
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script>
         async function saveFunction() {
             var x = document.getElementById("divSave")
@@ -81,7 +83,6 @@
             document.getElementById('spann').innerHTML = parsed.changed_by
         }
 
-
         async function changeFunction() {
             var x = document.getElementById('divChange')
             x.style.display = "none"
@@ -91,6 +92,7 @@
             z.disabled = false
 
         }
+        
         async function callWebservice(path, body) {
             let url = 'http://localhost:8080/' + path
             console.log(url)
@@ -106,6 +108,7 @@
             console.log(result)
             return (result)
         }
+        
         async function signIn() {
             x = encodeURIComponent(document.getElementById('name').value)
             y = encodeURIComponent(document.getElementById('pass').value)
@@ -128,15 +131,7 @@
             }
         }
     </script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
-    </script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
-    </script>
+
 </head>
 
 <body class="text-center" onload="loadFunction()">
@@ -165,24 +160,15 @@
                     <textarea class="lead form-control area" cols="100" rows="18" id="text" disabled>
 
                     </textarea>
-                    <span>changed by</span>
-                    <span id='spann'></span>
-                    <span id="span"></span>
+                    <span>changed by</span><span id='spann'></span><span id="span"></span>
             </div>
             <div class="button" id="divSave">
-                <p class="lead">
-                    <a href="#" class="btn btn-lg btn-secondary" onclick="saveFunction()" id="saveButton">Save</a>
-                </p>
+                <p class="lead"><a href="#" class="btn btn-lg btn-secondary" onclick="saveFunction()" id="saveButton">Save</a></p>
             </div>
             <div class="button" id="divChange">
-                <p class="lead">
-                    <a href="#" class="btn btn-lg btn-secondary" id="changeButton" type="button" class="btn btn-primary"
-                        data-toggle="modal" data-target="#exampleModalCenter">Unlock</a>
-                </p>
+                <p class="lead"><a href="#" class="btn btn-lg btn-secondary" id="changeButton" type="button" class="btn btn-primary"
+                    data-toggle="modal" data-target="#exampleModalCenter">Unlock</a></p>
             </div>
-            <input type="text" id="id" name="id" style="display: none" />
-            <!-- Button trigger modal -->
-
 
             <!-- Modal -->
             <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
