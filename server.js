@@ -12,6 +12,8 @@ var dbURL = "mongodb+srv://atiksh:patanahi@cluster0.ido36.mongodb.net/sandbox?re
 const moment = require('moment');
 const { executionAsyncResource } = require('async_hooks');
 const nodemailer =  require('nodemailer')
+const PORT = process.env.PORT || 3000;
+
 
 
 app.use(express.static('public'));
@@ -29,7 +31,7 @@ app.get('/', (req, res) => {
 })
 
 
-var server = app.listen(8080, () => {
+var server = app.listen(PORT, () => {
     var host = server.address().address;
     var port = server.address().address;
 
