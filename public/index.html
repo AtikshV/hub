@@ -105,7 +105,7 @@
         }
 
         async function callWebservice(path, body) {
-            let url = 'http://localhost:8080/' + path
+            let url = window.location.href + path
             console.log(url)
             //let response = await fetch(url);
             let response = await fetch(url, {

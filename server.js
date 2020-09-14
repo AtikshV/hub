@@ -12,7 +12,7 @@ var dbURL = "mongodb+srv://atiksh:patanahi@cluster0.ido36.mongodb.net/sandbox?re
 const moment = require('moment');
 const { executionAsyncResource } = require('async_hooks');
 const nodemailer =  require('nodemailer')
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 
 
 
@@ -35,7 +35,8 @@ var server = app.listen(PORT, () => {
     var host = server.address().address;
     var port = server.address().address;
 
-    console.log('example app listening at yadda yadda', host, port);
+    console.log('example app listening at yadda yadda' + host + port);
+    console.log(PORT)
 })
 
 app.post('/login', (req, res) => {
