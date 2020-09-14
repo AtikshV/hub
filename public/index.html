@@ -105,7 +105,11 @@
         }
 
         async function callWebservice(path, body) {
-            let url = window.location.href + path
+            var port = ''
+            if(window.location.port != '') {
+                port = ':' + window.location.port
+            }
+            let url = window.location.protocol + '//' + window.location.hostname + port + '/' + path
             console.log(url)
             //let response = await fetch(url);
             let response = await fetch(url, {
