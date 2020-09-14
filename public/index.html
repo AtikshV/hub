@@ -3,26 +3,20 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
     <title>The Hub</title>
     <!-- Bootstrap core CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <!-- Animate CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <!-- Custom styles for this template -->
     <link href="style.css" rel="stylesheet">
     <meta name="theme-color" content="#563d7c">
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
-    </script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
-    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+
+    
     <script>
         async function saveFunction() {
             //hidin save and showing unlock
@@ -100,7 +94,7 @@
             document.getElementById('spann').innerHTML = parsed.changed_by
         }
 
-        async function changeFunction() {
+        function changeFunction() {
             var x = document.getElementById('divChange')
             x.style.display = "none"
             var y = document.getElementById("divSave")
@@ -161,7 +155,8 @@
 
             }
         }
-        async function unlockFunction() {
+        
+        function unlockFunction() {   
             nameLS = localStorage.getItem("name")
             if (nameLS != null) {
                 changeFunction()
@@ -172,28 +167,20 @@
                 $('#exampleModalCenter').modal('show')
             }
 
+        }
 
-            /*check = localStorage.getItem("checked")
-            if (check == 'checked') {
-                changeFunction()
-                //$('#exampleModalCenter').modal('hide')
-            } else {
+        function registerFunction() {
+            $('#registerModal').modal('show')
+            $('#exampleModalCenter').modal('hide')
+            //$('.toast').toast('show')
 
 
-                console.log(checkbox)
-                if (checkbox.checked == true) {
-                    signIn()
-                    //$('#ex                checkbox = document.getElementById('checkbox')
-ampleModalCenter').modal('hide')
-                    //console.log('checked')
-                } else {
-                    $('#exampleModalCenter').modal('show')
-                }
-            }
+            
 
-        */
 
         }
+
+        
         async function logoutFunction() {
             localStorage.removeItem("name")
             Logout = document.getElementById('logout')
@@ -201,42 +188,92 @@ ampleModalCenter').modal('hide')
 
             //hide logout 
         }
+
+
+
+        function submitFunction() {
+            $('#registerModal').modal('hide')
+            var email = document.getElementById('email').value
+            var username = document.getElementById('nameR').value
+            var password = document.getElementById('passR').value
+            console.log(username)
+            let jason = {
+                'email': email,
+                'username': username,
+                'password': password                
+            }
+            console.log(jason)
+            callWebservice('register', jason)
+
+            //save credentials in database section for registration.
+            //send email to me of credentials
+            //display toast of "will be approved or declined".
+            //in email to me, there will be an aprrove button and a decline button.
+            //if approve is pressed, save the credentials in the users database, remove the credentials from the temp. section and send an email back saying that they have been approved. 
+            //if decline is pressed, remove the credentials from the temp. section. 
+        }
     </script>
 
 </head>
 
 <body class="text-center" onload="loadFunction()">
-
-
+    
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-        <span class="text-right">
-            <a href="#" id="logout" onclick="logoutFunction()">Logout</a>
-        </span>
-        <header class="masthead mb-auto">
-            <h1>
-                THE HUB
-            </h1>
+         <!--Toasts-->
+         <div aria-live="polite" aria-atomic="true" style="position: relative; ">
+            <!-- Position it -->
+            <div style="position: absolute; top: 0; right: 0;">
+        
+            <!-- Then put toasts within -->
+            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="10000">
+                <div class="toast-header">
+                <strong class="mr-auto">Bootstrap</strong>
+                <small class="text-muted">just now</small>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="toast-body">
+                See? Just like this.
+                </div>
+            </div>
+        
+            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="10000">
+                <div class="toast-header">
+                <strong class="mr-auto">Bootstrap</strong>
+                <small class="text-muted">2 seconds ago</small>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="toast-body">
+                Heads up, toasts will stack automatically
+                </div>
+            </div>
+            </div>
+        </div>
+        <!-- END Toasts-->
 
+        <header class="masthead mb-auto ">
+            <div class="row align-items-center">
+                <h1 class="col-sm-8 offset-sm-2">
+                    THE HUB
+                </h1>
+                <span class="col-sm-2">
+                    <a href="#" id="logout" onclick="logoutFunction()">Logout</a>
+                </span>
+            </div>
         </header>
 
 
         <main role="main" class="cover h-100 ">
-
             <div class="cover-area text-right">
-                <h4 class="cover-heading text-right">
-                    </h2>
-                    <div class="dropdown cover-heading text-right">
-                        <button class="dropbtn cover-heading text-right">8B Homework</button>
-                        <div class="dropdown-content">
-                            <a href="#">Link 1</a>
-                            <a href="#">Link 2</a>
-                            <a href="#">Link 3</a>
-                        </div>
-                    </div>
+                <h4 class="cover-heading text-right"></h4>
+                    
                     <textarea class="lead form-control area" cols="100" rows="18" id="text" disabled>
 
                     </textarea>
-                    <span>changed by </span> <span id='spann'> </span> <span id="span"></span>
+                    <span class="small" >changed by </span> <span class="small" id='spann'> </span> <span class="small" id="span"></span>
             </div>
             <div class="button" id="divSave">
                 <p class="lead"><a href="#" class="btn btn-lg btn-secondary" onclick="saveFunction()"
@@ -260,26 +297,53 @@ ampleModalCenter').modal('hide')
                         </div>
                         <div class="modal-body">
                             <form>
-                                <input type="text" placeholder="Username" id="name"> <br>
-                                <input type="text" placeholder="Password" id="pass"> <br>
-                                <input type="checkbox" name="checkbox" id="checkbox" class="text-left"> Remember me
+                                <input type="text" required placeholder="Username" id="name"> <br>
+                                <input type="password" required placeholder="Password" id="pass"> <br>
+                                <input type="checkbox"  name="checkbox" id="checkbox" class="text-left"> Remember me
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" onclick="signIn()">Login</button>
+                            <button type="button" class="btn btn-secondary" onclick="registerFunction()">Register</button>
                         </div>
                     </div>
                 </div>
             </div>
-        </main>
+            <!-- Register Modal-->
+            <div class="modal fade" id="registerModal" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Register</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <input type="email" required placeholder="E-mail" id="email">  <br>   
+                                <input type="text" required placeholder="Username" id="nameR"> <br>
+                                <input type="password" required placeholder="Password" id="passR"> <br>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" onclick="submitFunction()">Submit for approval</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </main> 
 
 
         <footer class="mastfoot mt-auto">
             <div class="inner" class="lead">
-                <p>Text me if you want an account :) - Atiksh</p>
+                <p>The Other Class coming soon!</p>
             </div>
         </footer>
     </div>
+    
 </body>
 
 </html>

@@ -9,10 +9,20 @@ const app = express()
 const mongoClient = require('mongodb').MongoClient;
 app.use(bodyParser.json())
 var dbURL = "mongodb+srv://atiksh:patanahi@cluster0.ido36.mongodb.net/sandbox?retryWrites=true&w=majority"
-const moment = require('moment')
+const moment = require('moment');
+const { executionAsyncResource } = require('async_hooks');
+const nodemailer =  require('nodemailer')
 
 
 app.use(express.static('public'));
+
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'solomonjohnson114@gmail.com',
+        pass: '2I3OWU9eGOqx'
+    }
+});
 
 app.get('/', (req, res) => {
     res.send('shjdj sdfjoiwerhr dfed s');
@@ -49,9 +59,33 @@ app.post('/login', (req, res) => {
     // return a match or not
 })
 
-app.post('/saveuser', (req, res) => {
-    console.log('save web service reporting for duty sir')
+app.post('/register', (req, res) => {
+    console.log('Registration reporting for duty sir')
+    var r = req.body
+    console.log(r)
+    var mailOptions = {
+        from: 'solomonjohnson114@gmail.com',
+        to: 'atikshvaish@gmail.com', 
+        subject: 'Registration for the HUB',
+        text: JSON.stringify(r)
+    };
 
+    transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+      });   
+    mongoClient.connect(dbURL, (err, db) => {
+        if(err) throw err
+        var dbo = db.db('sandbox')
+        dbo.collection('registration').insertOne(r, (err, res) => {
+            if(err) throw err 
+            console.log('1 document inserted succesfully')
+            db.close();
+        })
+    })
     //receive the data from the text box
     //return 
 })
@@ -63,7 +97,7 @@ app.post('/change', (req, res) => {
     mongoClient.connect(dbURL, (err, db) => {
         if(err) throw err
         var dbo = db.db('sandbox')
-        dbo.collection('users').findOne(r   , (err, result) => {
+        dbo.collection('users').findOne(r, (err, result) => {
             if(err) throw err
             console.log(result)
             if(result == null) {
@@ -122,3 +156,5 @@ app.post('/loadText', (req, res) => {
 
     })
 })
+
+
