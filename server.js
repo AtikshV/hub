@@ -8,7 +8,7 @@ const { response } = require('express');
 const app = express()
 const mongoClient = require('mongodb').MongoClient;
 app.use(bodyParser.json())
-var dbURL = "mongodb+srv://atiksh:patanahi@cluster0.ido36.mongodb.net/sandbox?retryWrites=true&w=majority"
+var dbURL = "mongodb+srv://atiksh:suR28f2wdwoP@cluster0.ido36.mongodb.net/sandbox?retryWrites=true&w=majority"
 const moment = require('moment');
 const { executionAsyncResource } = require('async_hooks');
 const nodemailer =  require('nodemailer')
