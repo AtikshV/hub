@@ -93,27 +93,17 @@ app.post('/register', (req, res) => {
     //return 
 })
 
-app.post('/change', (req, res) => {
-    console.log('Change function has answered thy call master')
-    var r = req.body
-    console.log(r)
+app.post('/list', (req, res) =>  {
     mongoClient.connect(dbURL, (err, db) => {
-        if(err) throw err
+        if (err) throw err
         var dbo = db.db('sandbox')
-        dbo.collection('users').findOne(r, (err, result) => {
+        dbo.collection('registration').find({}).toArray( (err, result) => {
             if(err) throw err
-            console.log(result)
-            if(result == null) {
-                res.send('No')
-            }
-            else {
-                res.send('Yes')
-            }
-            db.close();
+            res.send(result)
         })
     })
-    //recieve a
-    //return a 
+    //When approve is pressed in the list modal, this will move the approved user from 
+    //registration into users
 })
 
 app.post('/saveText', (req, res) => {
@@ -122,13 +112,18 @@ app.post('/saveText', (req, res) => {
     // return a 
     var r = req.body
     console.log(r)
+    if(r.switch == 'in 8A') {
+        switchh = 'agenda'
+    }else{
+        switchh = 'agenda8b'
+    }
     mongoClient.connect(dbURL, (err, db) => {
         if (err) throw err
         var dbo = db.db('sandbox')
         var query = { _id: r._id}
         console.log(query)  
         var time = moment().startOf(r.changed_dateTime).fromNow();
-        dbo.collection('agenda').replaceOne(query, r, {upsert: true}, (err, result) => {
+        dbo.collection(switchh).replaceOne(query, r, {upsert: true}, (err, result) => {
             if (err) throw err
             console.log('1 document updated')
             r.time = time
@@ -138,16 +133,24 @@ app.post('/saveText', (req, res) => {
     })
 
 })
+
 app.post('/loadText', (req, res) => {
     console.log('The single most important division of the HUB has responded to thy call')
     mongoClient.connect(dbURL, (err, db) => {
         if (err) throw err; 
         var dbo = db.db('sandbox');
+        r = req.body
+        if(r.switch == 'in 8A') {
+            switchh = 'agenda'
+        }else{
+            switchh = 'agenda8b'
+        }
+        
         /*dbo.collection('agenda').deleteMany({}, (err, result) => {
             if(err) throw err
             console.log('deleted')
         })*/
-        dbo.collection('agenda').find({},{sort:{_id:-1},limit:1}).toArray( (err, result) => { 
+        dbo.collection(switchh).find({},{sort:{_id:-1},limit:1}).toArray( (err, result) => { 
             if (err) throw err;
             console.log(result);
             var time = moment(result[0].changed_dateTime).fromNow();
@@ -160,4 +163,26 @@ app.post('/loadText', (req, res) => {
     })
 })
 
+/*app.post('/switch', (req, res) => {
+    console.log('8B switcher working sire')
+    r = req.body
+    console.log(r.switch)
+    if(r.switch == 'in 8A'){
+        switchh = 'agenda8b'
+    }else{
+        switchh = 'agenda'
+    }
+    console.log(switchh)
+    mongoClient.connect(dbURL, (err, db) => {
+        if(err) throw err
+        var dbo = db.db('sandbox')
+        dbo.collection(switchh).find({}).toArray( (err, result) => {
+            if(err) throw err 
+            var time = moment(result[0].changed_dateTime).fromNow();
+            result[0].time = time       
+            res.send(result[0])
+        })
+    })
+})
+*/
 

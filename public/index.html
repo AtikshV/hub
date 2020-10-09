@@ -27,11 +27,11 @@
             var z = document.getElementById('text')
             z.disabled = true
 
-
+            
             var texts = document.getElementById("text").value
             var text = encodeURIComponent(texts)
             var id = localStorage.getItem("id")
-            var changed_by
+            var changed_by  
             if (localStorage.getItem("name") != null) {
                 changed_by = localStorage.getItem("name")
             } else {
@@ -40,13 +40,15 @@
             console.log('chandfed by:' + changed_by)
             today = new Date()
             var changed_dateTime = today
+            
 
             //console.log(text)
             let jason = {
                 "_id": id,
                 "text": text,
                 "changed_by": changed_by,
-                "changed_dateTime": changed_dateTime
+                "changed_dateTime": changed_dateTime,
+                "switch": localStorage.getItem('switch')
             }
             console.log(jason)
             result = await callWebservice('saveText', jason)
@@ -60,6 +62,9 @@
         }
 
         async function loadFunction() {
+            if(localStorage.getItem('switch') == null) {
+                localStorage.setItem('switch', 'in 8A')
+            }
             Logout = document.getElementById('logout')
             nameLS = localStorage.getItem('name')
             if (nameLS == null) {
@@ -84,14 +89,20 @@
                 "changed_dateTime": changed_dateTime
             }*/
             //console.log(jason)
-
-            result = await callWebservice('loadText');
+            jason = {
+                'switch': localStorage.getItem('switch')
+            }
+            result = await callWebservice('loadText', jason);
             parsed = JSON.parse(result)
+            console.log(result)
             finale = decodeURIComponent(parsed.text)
             document.getElementById("text").value = finale
             localStorage.setItem("id", parsed.id)
             document.getElementById('span').innerHTML = parsed.time
             document.getElementById('spann').innerHTML = parsed.changed_by
+            if(localStorage.getItem('switch') == 'in 8B') {
+                document.getElementById('8Aswitch').innerHTML = '8B agenda'
+            }
         }
 
         function changeFunction() {
@@ -216,6 +227,49 @@
             //if approve is pressed, save the credentials in the users database, remove the credentials from the temp. section and send an email back saying that they have been approved. 
             //if decline is pressed, remove the credentials from the temp. section. 
         }
+
+        function listFunction() {
+            $('#listModal').modal('show')
+            result = callWebservice('list')
+            console.log(result)
+            x = document.getElementById('listForm')
+            x = result
+            
+        }
+
+        async function switchFunction() {
+            if(localStorage.getItem('switch') == 'in 8A') {
+                x = 'in 8B'
+            }else{
+                x = 'in 8A'
+            }
+            console.log(x) 
+            let jason = {
+                'switch': x
+            }
+            result = await callWebservice('loadText', jason)
+            console.log('swktch')
+            console.log(result)
+            parsed = JSON.parse(result)
+            decode = decodeURIComponent(parsed.text)
+            console.log(decode)
+            console.log(parsed.time)
+            document.getElementById('span').innerHTML = parsed.time
+            document.getElementById('spann').innerHTML = parsed.changed_by                
+            if(localStorage.getItem('switch') == 'in 8A') {//
+                document.getElementById('8Aswitch').innerHTML = '8B agenda'
+                localStorage.setItem('switch','in 8B')
+                console.log(decode)
+                document.getElementById('text').value = decode
+                
+               
+            }else{
+                document.getElementById('8Aswitch').innerHTML = '8A agenda'
+                localStorage.setItem('switch', 'in 8A')
+                console.log(decode)
+                document.getElementById('text').value = decode
+            }
+        }
     </script>
 
 </head>
@@ -223,45 +277,14 @@
 <body class="text-center" onload="loadFunction()">
     
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-         <!--Toasts-->
-         <div aria-live="polite" aria-atomic="true" style="position: relative; ">
-            <!-- Position it -->
-            <div style="position: absolute; top: 0; right: 0;">
-        
-            <!-- Then put toasts within -->
-            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="10000">
-                <div class="toast-header">
-                <strong class="mr-auto">Bootstrap</strong>
-                <small class="text-muted">just now</small>
-                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                </div>
-                <div class="toast-body">
-                See? Just like this.
-                </div>
-            </div>
-        
-            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="10000">
-                <div class="toast-header">
-                <strong class="mr-auto">Bootstrap</strong>
-                <small class="text-muted">2 seconds ago</small>
-                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                </div>
-                <div class="toast-body">
-                Heads up, toasts will stack automatically
-                </div>
-            </div>
-            </div>
-        </div>
-        <!-- END Toasts-->
-
+         
         <header class="masthead mb-auto ">
             <div class="row align-items-center">
                 <h1 class="col-sm-8 offset-sm-2">
                     THE HUB
+                    <svg width="0.3em" height="0.3em" viewBox="0 0 16 16" class="bi bi-circle-fill align-baseline" fill="red" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="8" cy="8" r="8" />
+                      </svg>
                 </h1>
                 <span class="col-sm-2">
                     <a href="#" id="logout" onclick="logoutFunction()">Logout</a>
@@ -269,17 +292,20 @@
             </div>
         </header>
 
+        
 
-        <main role="main" class="cover h-100 ">
+        <main role="main" class="cover h-100 ">     
+                
             <div class="cover-area text-right">
                 <h4 class="cover-heading text-right"></h4>
-                    
+                    <span id="8Aswitch">8A agenda</span>
+                    <a href="#" onclick="switchFunction()">(switch)</a>
                     <textarea class="lead form-control area" cols="100" rows="18" id="text" disabled>
 
                     </textarea>
                     <span class="small" >changed by </span> <span class="small" id='spann'> </span> <span class="small" id="span"></span>
             </div>
-            <div class="button" id="divSave">
+            <div class="button" id="divSave" style="display: none;">
                 <p class="lead"><a href="#" class="btn btn-lg btn-secondary" onclick="saveFunction()"
                         id="saveButton">Save</a></p>
             </div>
@@ -287,6 +313,11 @@
                 <p class="lead"><a href="#" class="btn btn-lg btn-secondary" id="changeButton"
                         onclick="unlockFunction()">Unlock</a></p>
             </div>
+            <!--<div class="button" id="list">
+                <p class="lead"><a href="#" class="btn btn-lg btn-secondary" id="changeButton"
+                        onclick="listFunction()">List</a></p>
+            </div>-->
+            
 
             <!-- Modal -->
             <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
@@ -337,13 +368,33 @@
                     </div>
                 </div>
             </div>
+            <!--List Modal-->
+            <div class="modal fade" id="listModal" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">List</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="listForm">
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
             
         </main> 
 
 
         <footer class="mastfoot mt-auto">
             <div class="inner" class="lead">
-                <p>The Other Class coming soon!</p>
+                <p>Text customization coming soon!</p>
             </div>
         </footer>
     </div>
