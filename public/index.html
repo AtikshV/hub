@@ -25,7 +25,10 @@
             var y = document.getElementById("divChange")
             y.style.display = "inline-block"
             var z = document.getElementById('text')
+            var dz = document.getElementById('dtext')
+            dz.style.display = 'inline-block'
             z.disabled = true
+            z.style.display = 'none'
 
             
             var texts = document.getElementById("text").value
@@ -62,6 +65,7 @@
         }
 
         async function loadFunction() {
+            processFunction('s')
             if(localStorage.getItem('switch') == null) {
                 localStorage.setItem('switch', 'in 8A')
             }
@@ -71,6 +75,10 @@
                 Logout.style.display = 'none'
             }
             var x = document.getElementById('divSave')
+            var z = document.getElementById('text')
+            var dz = document.getElementById('dtext')
+            dz.style.display = 'inline-block'
+            z.style.display = 'none'
             x.style.display = 'none'
 
             /*var texts = document.getElementById("text").value
@@ -97,6 +105,8 @@
             console.log(result)
             finale = decodeURIComponent(parsed.text)
             document.getElementById("text").value = finale
+            Presult = processFunction(finale)
+            document.getElementById("dtext").innerHTML = Presult
             localStorage.setItem("id", parsed.id)
             document.getElementById('span').innerHTML = parsed.time
             document.getElementById('spann').innerHTML = parsed.changed_by
@@ -173,9 +183,12 @@
         
         function unlockFunction() {   
             nameLS = localStorage.getItem("name")
+            var dz = document.getElementById('dtext')
+            var z = document.getElementById('text')
+            dz.style.display = 'none'
+            z.style.display = 'inline-block'
             if (nameLS != null) {
                 changeFunction()
-
             } else {
 
 
@@ -261,6 +274,13 @@
                 localStorage.setItem('switch','in 8B')
                 console.log(decode)
                 document.getElementById('text').value = decode
+                Presult = processFunction(decode)
+                document.getElementById('dtext').innerHTML = Presult
+                z = document.getElementById('text')
+                dz = document.getElementById('dtext')
+                z.style.display = 'none'
+                dz.style.display = 'inline-block'
+
                 
                
             }else{
@@ -268,7 +288,45 @@
                 localStorage.setItem('switch', 'in 8A')
                 console.log(decode)
                 document.getElementById('text').value = decode
+                Presult = processFunction(decode)
+                document.getElementById('dtext').innerHTML = Presult
+                z = document.getElementById('text')
+                dz = document.getElementById('dtext')
+                z.style.display = 'none'
+                dz.style.display = 'inline-block'
+
             }
+        }
+        // will change special characters in text to HTML
+        function processFunction(text) {
+            console.log('process functin is workinfs')
+            var b = text.indexOf('*');
+            while(b >= 0){  
+                b = text.indexOf('*')
+                if(b >= 0 ){
+                    text = text.replace('*', '<b>')
+                }
+                b = text.indexOf('*')
+                if(b >= 0){
+                    text = text.replace('*', '</b>')
+                }
+                console.log(b)
+                console.log(text)
+            }
+            var c = text.indexOf('#b')
+            while(c >= 0){ 
+                c = text.indexOf('#b')
+                if(c >= 0){
+                    text = text.replace('#b', '<span class="blue">')
+                }
+                if(c >= 0){
+                    text = text.replace('#b', '</span class="blue">')
+                }
+                console.log(c)
+                console.log(text)
+            }
+            return(text);
+            console.log(text)
         }
     </script>
 
@@ -294,15 +352,14 @@
 
         
 
-        <main role="main" class="cover h-100 ">     
+        <main role="main" class="cover">     
                 
             <div class="cover-area text-right">
                 <h4 class="cover-heading text-right"></h4>
                     <span id="8Aswitch">8A agenda</span>
                     <a href="#" onclick="switchFunction()">(switch)</a>
-                    <textarea class="lead form-control area" cols="100" rows="18" id="text" disabled>
-
-                    </textarea>
+                    <textarea class="lead form-control area" cols="100" rows="18" id="text" disabled></textarea>
+                    <div class="text-left" id="dtext"></div>
                     <span class="small" >changed by </span> <span class="small" id='spann'> </span> <span class="small" id="span"></span>
             </div>
             <div class="button" id="divSave" style="display: none;">
@@ -394,7 +451,7 @@
 
         <footer class="mastfoot mt-auto">
             <div class="inner" class="lead">
-                <p>Text customization coming soon!</p>
+                <p>'*' for *bold* and '#b' for #bblue#b - More colours coming soon!</p>
             </div>
         </footer>
     </div>

@@ -1,44 +1,51 @@
 IMPORTANT:
 
 !!BPL!!
-
+THANKSGIVING MONDAY - DONT COME TO SCHOOL WITH JON BALD (if you do we will all be ashamed of you)
 thehub.red will now work as a URL for school. 
-keep in mind that pace007.com is blocked, so you can use that for home i guess 
-thehub.red is just for school cuz they blocked pace007
+keep in mind that pace007.com is blocked in school, so you can use that for home i guess 
 
-Math: Quiz on Monday that goes on the report card
+Math: The bonus Questions(mon)(im pretty sure)
+He assigned HW on teams(only #1-8)(mon)( i think for the quiz thats on tuesday)
+He also assigned another thing on Teams that tells you to go to the OneNote(wed)
 
-English: Romeo and Juliet Act 3(tues)
-               WWW Quiz on List #32 and #31 and #33(Thursday)
-              WWW Ideas (3 short ones or 1 long one)(moN)
+English: Romeo and Juliet Act 4(tues)
+               WWW Quiz on List #32 and #31 and #33 AND #34 and #35(Thursday)
+               WWW Test on List #31, #32, #33, #34, AND #35 and #36(Next to next Thursday - Oct 29)
+               The ideas for list #34(mon)
 
-Life Skills: Assesment thing on sketch notes in like a week idk ask atiksh
-The Cornell note taking ASSESMEnt not sketch notes, in class, on monday or sometthing, 
-
-Science: Problem Solving Assessment(Tom)
-BRING A CALCULATOR FOR THE ASSESMENT TOMORROW - NOT A PHONE OR COMPuter IT GOTTA BE THE EXPENSIVE GRAPHING ONE BUT ACTUALLY IDK IM JUST SAYINF THIS
+Life Skills: 
+The Cornell note taking ASSESMEnt not sketch notes, in class(mon(10 mins to check))
 
 
-French: Pg. 31. in the cahier(tom) ( put them in the proper order)
-The Listening Assesment on the REport card(mon)
+Science: Assignment thing on Astronomy (November 9)
+
+
+French:
+The Homework adjectives emailed(tom)
+A short package on OneNote for the test(over the weekend)
+Do the test Outline
+The test(wed)
+
 
 
 Music: The ethnomusicology project (November) and do the Breezin Thru thing(1 chapter per month or idk)
-Play the first 5 notes for u instrument and send in a video, look on OneNote(octobr 7)
 
-Drama:  
+Drama:  Read article on Russian dude in Teams (idk when he just told us to do it)
 
-Health:
+Health: the 20 questions on OneNote(Wed)
 
 
-Computers: pg. 23 in the computers textbook(Tom)
-
+Computers: The HW in the OneNote(Tues)
 Other: You can register if you want
 
 Phys.Ed: the stretching assessment(in your OneOneNote)
 
-Important Dates:
+Important Dates: Halloween!!! BRING INDUSTRIAL GRADE (or normal grade if ur not rich and snobby like Adin)PLUNGERS AND WEAR THEM ON YOUR HEAD
+                             Jon Bald's Birthday!!! MAKE SURE YOU SCREAM HAPPY BIRTHDAY EVERY SINGLE DAY TO HIM AND MAKE HIM EMBARRASSED OR 
+                             WE WILL ALL BE ASHAMED OF YOU
 
-Pun of the Day: to whoever stole my antidepressants, i hope you're happy now
+Joke of the Day: Jon Bald
 
-Random Emoji of the Day: 
+Random Emoji of the Day: 🍥the thing that nobody even uses when they text
+
