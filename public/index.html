@@ -62,6 +62,7 @@
             document.getElementById("text").value = finale
             document.getElementById('span').innerHTML = parsed.time
             document.getElementById('spann').innerHTML = parsed.changed_by
+            processFunction(documentg.getElementById('text'))
         }
 
         async function loadFunction() {
@@ -325,6 +326,42 @@
                 console.log(c)
                 console.log(text)
             }
+            var r = text.indexOf('#r')
+            while(r >= 0){ 
+                r = text.indexOf('#r')
+                if(r >= 0){
+                    text = text.replace('#r', '<span class="red">')
+                }
+                if(r >= 0){
+                    text = text.replace('#r', '</span class="red">')
+                }
+                console.log(r)
+                console.log(text)
+            }
+            var y = text.indexOf('#y')
+            while(y >= 0){ 
+                y = text.indexOf('#y')
+                if(y >= 0){
+                    text = text.replace('#y', '<span class="yellow">')
+                }
+                if(y >= 0){
+                    text = text.replace('#y', '</span class="yellow">')
+                }
+                console.log(y)
+                console.log(text)
+            }
+            var g = text.indexOf('#g')
+            while(g >= 0){ 
+                g = text.indexOf('#g')
+                if(g >= 0){
+                    text = text.replace('#g', '<span class="green">')
+                }
+                if(g >= 0){
+                    text = text.replace('#g', '</span class="green">')
+                }
+                console.log(g)
+                console.log(text)
+            }
             return(text);
             console.log(text)
         }
@@ -451,7 +488,7 @@
 
         <footer class="mastfoot mt-auto">
             <div class="inner" class="lead">
-                <p>'*' for * text * and '#b' for #b text #b - More colours coming soon!</p>
+                <div id="dfoot">'*' = <b>text</b>, '#b' =  <span class="blue">text</span>, '#r' = <span class="red">text</span>, '#y' = <span class="yellow">text</span>, '#g' = <span class="green">text</span>, </div>
             </div>
         </footer>
     </div>
