@@ -169,5 +169,15 @@ span {
 }
 
 .green {
-  color: lightgreen;
+  color: lime;
+}
+
+.purple {
+  color: fuchsia;
+}
+
+.listmodal{
+  width: 100px;
+  height: 100px;
+  background-color: green;
 }

@@ -6,17 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
     <title>The Hub</title>
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <!-- Custom styles for this template -->
     <link href="style.css" rel="stylesheet">
     <meta name="theme-color" content="#563d7c">
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous">
+    </script>
+    <script src="anime.min.js"></script>
 
 
-    
+
     <script>
         async function saveFunction() {
             //hidin save and showing unlock
@@ -30,11 +38,11 @@
             z.disabled = true
             z.style.display = 'none'
 
-            
+
             var texts = document.getElementById("text").value
             var text = encodeURIComponent(texts)
             var id = localStorage.getItem("id")
-            var changed_by  
+            var changed_by
             if (localStorage.getItem("name") != null) {
                 changed_by = localStorage.getItem("name")
             } else {
@@ -43,7 +51,7 @@
             console.log('chandfed by:' + changed_by)
             today = new Date()
             var changed_dateTime = today
-            
+
 
             //console.log(text)
             let jason = {
@@ -66,8 +74,10 @@
         }
 
         async function loadFunction() {
+            
+            console.log(window.innerWidth)
             processFunction('s')
-            if(localStorage.getItem('switch') == null) {
+            if (localStorage.getItem('switch') == null) {
                 localStorage.setItem('switch', 'in 8A')
             }
             Logout = document.getElementById('logout')
@@ -103,7 +113,7 @@
             }
             result = await callWebservice('loadText', jason);
             parsed = JSON.parse(result)
-            console.log(result)
+            //console.log(result)
             finale = decodeURIComponent(parsed.text)
             document.getElementById("text").value = finale
             Presult = processFunction(finale)
@@ -111,10 +121,48 @@
             localStorage.setItem("id", parsed.id)
             document.getElementById('span').innerHTML = parsed.time
             document.getElementById('spann').innerHTML = parsed.changed_by
-            if(localStorage.getItem('switch') == 'in 8B') {
+            if (localStorage.getItem('switch') == 'in 8B') {
                 document.getElementById('8Aswitch').innerHTML = '8B agenda'
             }
+            /*let animation = anime({
+                targets: '#arrow',
+                easing: 'linear',
+                direcion: 'alternate',
+                duration: 550,
+                translateX: [
+                    {
+                        value: -(window.innerWidth)/2,
+                        duration: 1,
+                    }
+
+                ],                
+                translateY: [
+                    {
+                        value: -16,
+                    },
+                    {
+                        value: 16,
+                    },
+                    {
+                        value: 16,
+                    },
+                    {
+                        value: -16,
+                    },
+                    {
+                        value: 8,
+                    },
+                    {
+                        value: -8,
+                    },
+                    {
+                        value: 0,
+                    },
+                    ],                
+                
+            })*/
         }
+        
 
         function changeFunction() {
             var x = document.getElementById('divChange')
@@ -128,7 +176,7 @@
 
         async function callWebservice(path, body) {
             var port = ''
-            if(window.location.port != '') {
+            if (window.location.port != '') {
                 port = ':' + window.location.port
             }
             let url = window.location.protocol + '//' + window.location.hostname + port + '/' + path
@@ -149,7 +197,7 @@
         async function signIn() {
 
             username = encodeURIComponent(document.getElementById('name').value)
-                password = encodeURIComponent(document.getElementById('pass').value)
+            password = encodeURIComponent(document.getElementById('pass').value)
             let jason = {
                 'name': username,
                 'password': password
@@ -164,7 +212,7 @@
                 checkbox = document.getElementById('checkbox')
                 if (checkbox.checked == true) {
                     localStorage.setItem('name', username)
-                        Logout = document.getElementById('logout')
+                    Logout = document.getElementById('logout')
                     Logout.style.display = 'inline'
                 }
                 /*changeFunction();
@@ -179,10 +227,40 @@
                 element.classList.add('animate__animated', 'animate__shakeX');
                 $('#exampleModalCenter').modal('show')*/
 
-            }
+            }else{
+                /*let animation = anime({
+                    targets: '#exampleModalCenter',
+                    easing: 'easeInOutSine',
+                    direcion: 'alternate',
+                    duration: 550,
+                    translateX: [
+                        {
+                            value: 16
+                        },
+                        {
+                            value: -16
+                        },
+                        {
+                            value: 16
+                        },
+                        {
+                            value: -16
+                        },
+                        {
+                            value: 8
+                        },
+                        {
+                            value: -8
+                        },
+                        {
+                            value: 0,
+                        }
+                    ]
+                })
+            }*/
         }
-        
-        function unlockFunction() {   
+
+        function unlockFunction() {
             nameLS = localStorage.getItem("name")
             var dz = document.getElementById('dtext')
             var z = document.getElementById('text')
@@ -204,12 +282,12 @@
             //$('.toast').toast('show')
 
 
-            
+
 
 
         }
 
-        
+
         async function logoutFunction() {
             localStorage.removeItem("name")
             Logout = document.getElementById('logout')
@@ -229,7 +307,7 @@
             let jason = {
                 'email': email,
                 'username': username,
-                'password': password                
+                'password': password
             }
             console.log(jason)
             callWebservice('register', jason)
@@ -248,16 +326,16 @@
             console.log(result)
             x = document.getElementById('listForm')
             x = result
-            
+
         }
 
         async function switchFunction() {
-            if(localStorage.getItem('switch') == 'in 8A') {
+            if (localStorage.getItem('switch') == 'in 8A') {
                 x = 'in 8B'
-            }else{
+            } else {
                 x = 'in 8A'
             }
-            console.log(x) 
+            console.log(x)
             let jason = {
                 'switch': x
             }
@@ -269,10 +347,10 @@
             console.log(decode)
             console.log(parsed.time)
             document.getElementById('span').innerHTML = parsed.time
-            document.getElementById('spann').innerHTML = parsed.changed_by                
-            if(localStorage.getItem('switch') == 'in 8A') {//
+            document.getElementById('spann').innerHTML = parsed.changed_by
+            if (localStorage.getItem('switch') == 'in 8A') { //
                 document.getElementById('8Aswitch').innerHTML = '8B agenda'
-                localStorage.setItem('switch','in 8B')
+                localStorage.setItem('switch', 'in 8B')
                 console.log(decode)
                 document.getElementById('text').value = decode
                 Presult = processFunction(decode)
@@ -282,9 +360,9 @@
                 z.style.display = 'none'
                 dz.style.display = 'inline-block'
 
-                
-               
-            }else{
+
+
+            } else {
                 document.getElementById('8Aswitch').innerHTML = '8A agenda'
                 localStorage.setItem('switch', 'in 8A')
                 console.log(decode)
@@ -302,96 +380,85 @@
         function processFunction(text) {
             console.log('process functin is workinfs')
             var b = text.indexOf('*');
-            while(b >= 0){  
+            while (b >= 0) {
                 b = text.indexOf('*')
-                if(b >= 0 ){
+                if (b >= 0) {
                     text = text.replace('*', '<b>')
                 }
                 b = text.indexOf('*')
-                if(b >= 0){
+                if (b >= 0) {
                     text = text.replace('*', '</b>')
                 }
-                console.log(b)
-                console.log(text)
+                //console.log(b)
+                //console.log(text)
             }
             var c = text.indexOf('#b')
-            while(c >= 0){ 
+            while (c >= 0) {
                 c = text.indexOf('#b')
-                if(c >= 0){
+                if (c >= 0) {
                     text = text.replace('#b', '<span class="blue">')
                 }
-                if(c >= 0){
+                if (c >= 0) {
                     text = text.replace('#b', '</span class="blue">')
                 }
-                console.log(c)
-                console.log(text)
+                //console.log(c)
+                //console.log(text)
             }
             var r = text.indexOf('#r')
-            while(r >= 0){ 
+            while (r >= 0) {
                 r = text.indexOf('#r')
-                if(r >= 0){
+                if (r >= 0) {
                     text = text.replace('#r', '<span class="red">')
                 }
-                if(r >= 0){
+                if (r >= 0) {
                     text = text.replace('#r', '</span class="red">')
                 }
-                console.log(r)
-                console.log(text)
+                //console.log(r)
+                //console.log(text)
             }
             var y = text.indexOf('#y')
-            while(y >= 0){ 
+            while (y >= 0) {
                 y = text.indexOf('#y')
-                if(y >= 0){
+                if (y >= 0) {
                     text = text.replace('#y', '<span class="yellow">')
                 }
-                if(y >= 0){
+                if (y >= 0) {
                     text = text.replace('#y', '</span class="yellow">')
                 }
-                console.log(y)
-                console.log(text)
+                //console.log(y)
+                //console.log(text)
             }
             var g = text.indexOf('#g')
-            while(g >= 0){ 
+            while (g >= 0) {
                 g = text.indexOf('#g')
-                if(g >= 0){
+                if (g >= 0) {
                     text = text.replace('#g', '<span class="green">')
                 }
-                if(g >= 0){
+                if (g >= 0) {
                     text = text.replace('#g', '</span class="green">')
                 }
-                console.log(g)
-                console.log(text)
+                //console.log(g)
+                //console.log(text)
             }
-            var p = text.indexOf("#p")
-            while(p >= 0){
-                p = text.indexOf("#p");
-                if(p >= 0){
-                    text = text.replace("#p", '<span class="purple">')
-                }
-                if(p >= 0){
-                    text = text.replace('#p', '</span class="purple">')
-                }
-                console.log(p)
-                console.log(text)
-            }
-            return(text);
-            console.log(text)
+            return (text);
+            //console.log(text)
         }
     </script>
 
 </head>
 
 <body class="text-center" onload="loadFunction()">
-    
+
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-         
+
         <header class="masthead mb-auto ">
             <div class="row align-items-center">
                 <h1 class="col-sm-8 offset-sm-2">
                     THE HUB
-                    <svg width="0.3em" height="0.3em" viewBox="0 0 16 16" class="bi bi-circle-fill align-baseline" fill="red" xmlns="http://www.w3.org/2000/svg">
+                    <svg width="0.3em" height="0.3em" viewBox="0 0 16 16" class="bi bi-circle-fill align-baseline"
+                        fill="red" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="8" cy="8" r="8" />
-                      </svg>
+                    </svg>
                 </h1>
                 <span class="col-sm-2">
                     <a href="#" id="logout" onclick="logoutFunction()">Logout</a>
@@ -399,22 +466,36 @@
             </div>
         </header>
 
-        
 
-        <main role="main" class="cover">     
-                
+
+        <main role="main" class="cover">
+
+
+
             <div class="cover-area text-right">
                 <h4 class="cover-heading text-right"></h4>
-                    <span id="8Aswitch">8A agenda</span>
-                    <a href="#" onclick="switchFunction()">(switch)</a>
-                    <textarea class="lead form-control area" cols="100" rows="18" id="text" disabled></textarea>
-                    <div class="text-left" id="dtext"></div>
-                    <span class="small" >changed by </span> <span class="small" id='spann'> </span> <span class="small" id="span"></span>
+                <span id="8Aswitch">8A agenda</span>
+                <a href="#" onclick="switchFunction()">(switch)</a>
+                <textarea class="lead form-control area" cols="100" rows="18" id="text" disabled></textarea>
+
+                <div class="text-left" id="dtext"></div>
+                <span>
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-down-circle-fill "
+                        fill="currentColor" xmlns="http://www.w3.org/2000/svg" id="arrow">
+                        <path fill-rule="evenodd"
+                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z" />
+                    </svg>
+                </span>
+
+                <span class="small">changed by </span> <span class="small" id='spann'> </span> <span class="small"
+                    id="span"></span>
+
             </div>
             <div class="button" id="divSave" style="display: none;">
                 <p class="lead"><a href="#" class="btn btn-lg btn-secondary" onclick="saveFunction()"
                         id="saveButton">Save</a></p>
             </div>
+
             <div class="button" id="divChange">
                 <p class="lead"><a href="#" class="btn btn-lg btn-secondary" id="changeButton"
                         onclick="unlockFunction()">Unlock</a></p>
@@ -423,7 +504,7 @@
                 <p class="lead"><a href="#" class="btn btn-lg btn-secondary" id="changeButton"
                         onclick="listFunction()">List</a></p>
             </div>-->
-            
+
 
             <!-- Modal -->
             <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
@@ -440,12 +521,13 @@
                             <form>
                                 <input type="text" required placeholder="Username" id="name"> <br>
                                 <input type="password" required placeholder="Password" id="pass"> <br>
-                                <input type="checkbox"  name="checkbox" id="checkbox" class="text-left"> Remember me
+                                <input type="checkbox" name="checkbox" id="checkbox" class="text-left"> Remember me
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" onclick="signIn()">Login</button>
-                            <button type="button" class="btn btn-secondary" onclick="registerFunction()">Register</button>
+                            <button type="button" class="btn btn-secondary"
+                                onclick="registerFunction()">Register</button>
                         </div>
                     </div>
                 </div>
@@ -463,48 +545,51 @@
                         </div>
                         <div class="modal-body">
                             <form>
-                                <input type="email" required placeholder="E-mail" id="email">  <br>   
+                                <input type="email" required placeholder="E-mail" id="email"> <br>
                                 <input type="text" required placeholder="Username" id="nameR"> <br>
                                 <input type="password" required placeholder="Password" id="passR"> <br>
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" onclick="submitFunction()">Submit for approval</button>
+                            <button type="button" class="btn btn-secondary" onclick="submitFunction()">Submit for
+                                approval</button>
                         </div>
                     </div>
                 </div>
             </div>
             <!--List Modal-->
-            <div class="modal fade" id="listModal" tabindex="-1" role="dialog"
-            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">List</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="listForm">
-                        </form>
-                    </div>
-                    <div class="modal-footer">
+            <div class="modal fade" id="listModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">List</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="listForm">
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-            
-        </main> 
+
+        </main>
 
 
         <footer class="mastfoot mt-auto">
             <div class="inner" class="lead">
-                <div id="dfoot">'*' = <b>text</b>, '#b' =  <span class="blue">text</span>, '#r' = <span class="red">text</span>, '#y' = <span class="yellow">text</span>, '#g' = <span class="green">text</span>,  '#p' =  <span class="purple">text</span>, </div>
+                <div class="dfoot">'*' = <b>text</b>, '#b' = <span class="blue">text</span>, '#r' = <span
+                        class="red">text</span>, '#y' = <span class="yellow">text</span>, '#g' = <span
+                        class="green">text</span>, </div>
             </div>
         </footer>
     </div>
-    
+
 </body>
 
 </html>
