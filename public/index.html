@@ -374,6 +374,18 @@
                 console.log(p)
                 console.log(text)
             }
+            var i = text.indexOf("_")
+            while(i >= 0){
+                i = text.indexOf("_");
+                if(i >= 0){
+                    text = text.replace("_", '<i>')
+                }
+                if(i >= 0){
+                    text = text.replace('_', '</i>')
+                }
+                console.log(i)
+                console.log(text)
+            }   
             return(text);
             console.log(text)
         }
@@ -500,7 +512,7 @@
 
         <footer class="mastfoot mt-auto">
             <div class="inner" class="lead">
-                <div id="dfoot">'*' = <b>text</b>, '#b' =  <span class="blue">text</span>, '#r' = <span class="red">text</span>, '#y' = <span class="yellow">text</span>, '#g' = <span class="green">text</span>,  '#p' =  <span class="purple">text</span>, </div>
+                <div id="dfoot">'*' = <b>text</b>, '#b' =  <span class="blue">text</span>, '#r' = <span class="red">text</span>, '#y' = <span class="yellow">text</span>, '#g' = <span class="green">text</span>,  '#p' =  <span class="purple">text</span>, '_' = <i>text</i></div>
             </div>
         </footer>
     </div>
