@@ -68,8 +68,8 @@ app.post('/register', (req, res) => {
     console.log(r)
     var mailOptions = {
         from: 'solomonjohnson114@gmail.com',
-        to: 'jonathanbqyang@gmail.com', 
-        subject: 'HAHA spam',
+        to: 'atikshvaish@gmail.com', 
+        subject: 'Registration for The HUB',
         text: JSON.stringify(r)
     };
 
