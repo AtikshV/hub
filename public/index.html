@@ -1,30 +1,221 @@
-<html> 
-    <body> 
-        <p>
-     
-            
-                <br><br>THE HUB - IMPROVED<br><br>
-            
-            <br><br><br>sorry david it jayin fault<br><br><br>
-        Gee Jayin you bad <br>
-            <br><br>
-            <br><br>
-            !!!!see jayin i rollback!!!
-            <br><br>
-            
-            big fancy upgrade <br><br><br>
-            quality == annex radiator<br><br><br><br>
-        OK we do things like this now because Jayin poopy doody:((((((( <br><br>
-        math: test friday <br><br>
-        science: discussion ongoing <br><br>
-        health: test tomorow <br><br>
-        civics and careers test soon too <br><br>
-        computers: something due soon <br><br>
-        music: idk figure it out<br><br>
-        french: 1-11 in onenote <br><br>
-        english: discussion thursday, inclass essay sooon too <br><br>
-        memorize drama <br><br>
-        <p>
-    <body>
-<html>
-        
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>The Hub</title>
+    <!-- Bootstrap core CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
+    <meta name="theme-color" content="#563d7c">
+
+    <!-- Custom styles for this template -->
+    <link href="style.css" rel="stylesheet">
+    <script>
+        async function saveFunction() {
+            var x = document.getElementById("divSave")
+            x.style.display = "none"
+            var y = document.getElementById("divChange")
+            y.style.display = "inline-block"
+            var z = document.getElementById('text')
+            z.disabled = true
+
+            var texts = document.getElementById("text").value
+            var text = encodeURIComponent(texts)
+            var id = localStorage.getItem("id")
+            var changed_by = document.getElementById('name').value
+            console.log('chandfed by:' + changed_by)
+            today = new Date()
+            var changed_dateTime = today
+
+            //console.log(text)
+            let jason = {
+                "_id": id,
+                "text": text,
+                "changed_by": changed_by,
+                "changed_dateTime": changed_dateTime
+            }
+            console.log(jason)
+            result = await callWebservice('saveText', jason)
+            parsed = JSON.parse(result)
+            textt = parsed.text
+            finale = decodeURIComponent(textt)
+            console.log('finale:' + finale)
+            document.getElementById("text").value = finale
+            document.getElementById('span').innerHTML = parsed.time
+            document.getElementById('spann').innerHTML = parsed.changed_by
+        }
+
+        async function loadFunction() {
+            var x = document.getElementById('divSave')
+            x.style.display = 'none'
+
+            var texts = document.getElementById("text").value
+            var text = encodeURIComponent(texts)
+            var id = localStorage.getItem("id")
+            var changed_by = document.getElementById('name').value
+            console.log('chandfed by:' + changed_by)
+            d = new Date()
+            var changed_dateTime = d.getTime()
+
+            //console.log(text)
+            let jason = {
+                "_id": id,
+                "text": text,
+                "changed_by": changed_by,
+                "changed_dateTime": changed_dateTime
+            }
+            console.log(jason)
+
+            result = await callWebservice('loadText');
+            parsed = JSON.parse(result)
+            textt = parsed.text
+            idd = parsed._id
+            finale = decodeURIComponent(textt)
+            document.getElementById("text").value = finale
+            localStorage.setItem("id", idd)
+            document.getElementById('span').innerHTML = parsed.time
+            document.getElementById('spann').innerHTML = parsed.changed_by
+        }
+
+
+        async function changeFunction() {
+            var x = document.getElementById('divChange')
+            x.style.display = "none"
+            var y = document.getElementById("divSave")
+            y.style.display = "inline-block"
+            z = document.getElementById('text')
+            z.disabled = false
+
+        }
+        async function callWebservice(path, body) {
+            let url = 'http://localhost:8080/' + path
+            console.log(url)
+            //let response = await fetch(url);
+            let response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
+            });
+            let result = await response.text();
+            console.log(result)
+            return (result)
+        }
+        async function signIn() {
+            x = encodeURIComponent(document.getElementById('name').value)
+            y = encodeURIComponent(document.getElementById('pass').value)
+            let jason = {
+                'name': x,
+                'password': y
+            }
+            console.log(jason)
+            result = await callWebservice('login', jason);
+            console.log(result)
+            if (result == 'Yes') {
+                changeFunction();
+                console.log('yes')
+                $('#exampleModalCenter').modal('hide')
+            } else {
+                document.getElementById('pass').select()
+                const element = document.getElementById('exampleModalCenter');
+                element.classList.add('animate__animated', 'animate__shakeX');
+
+            }
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+    </script>
+</head>
+
+<body class="text-center" onload="loadFunction()">
+
+
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <header class="masthead mb-auto">
+            <h1>
+                THE HUB
+            </h1>
+        </header>
+
+        <main role="main" class="cover h-100 ">
+
+            <div class="cover-area text-right">
+                <h4 class="cover-heading text-right">
+                    </h2>
+                    <div class="dropdown cover-heading text-right">
+                        <button class="dropbtn cover-heading text-right">8B Homework</button>
+                        <div class="dropdown-content">
+                            <a href="#">Link 1</a>
+                            <a href="#">Link 2</a>
+                            <a href="#">Link 3</a>
+                        </div>
+                    </div>
+                    <textarea class="lead form-control area" cols="100" rows="18" id="text" disabled>
+
+                    </textarea>
+                    <span>changed by</span>
+                    <span id='spann'></span>
+                    <span id="span"></span>
+            </div>
+            <div class="button" id="divSave">
+                <p class="lead">
+                    <a href="#" class="btn btn-lg btn-secondary" onclick="saveFunction()" id="saveButton">Save</a>
+                </p>
+            </div>
+            <div class="button" id="divChange">
+                <p class="lead">
+                    <a href="#" class="btn btn-lg btn-secondary" id="changeButton" type="button" class="btn btn-primary"
+                        data-toggle="modal" data-target="#exampleModalCenter">Unlock</a>
+                </p>
+            </div>
+            <input type="text" id="id" name="id" style="display: none" />
+            <!-- Button trigger modal -->
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Login</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <input type="text" placeholder="Username" id="name"> <br>
+                                <input type="text" placeholder="Password" id="pass">
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" onclick="signIn()">Login</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+
+        <footer class="mastfoot mt-auto">
+            <div class="inner" class="lead">
+                <p>Text me if you want an account :) - Atiksh</p>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>
