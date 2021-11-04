@@ -1,29 +1,522 @@
-<html> 
-    <body> 
-        <p>
-     
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+    <title>The Hub</title>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <!-- Custom styles for this template -->
+    <link href="style.css" rel="stylesheet">
+    <meta name="theme-color" content="#563d7c">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+
+    
+    <script>
+        async function saveFunction() {
+            //hidin save and showing unlock
+            var x = document.getElementById("divSave")
+            x.style.display = "none"
+            var y = document.getElementById("divChange")
+            y.style.display = "inline-block"
+            var z = document.getElementById('text')
+            var dz = document.getElementById('dtext')
+            dz.style.display = 'inline-block'
+            z.disabled = true
+            z.style.display = 'none'
+
             
-                <br><br>THE HUB - IMPROVED<br><br>
+            var texts = document.getElementById("text").value
+            var text = encodeURIComponent(texts)
+            var id = localStorage.getItem("id")
+            var changed_by  
+            if (localStorage.getItem("name") != null) {
+                changed_by = localStorage.getItem("name")
+            } else {
+                changed_by = document.getElementById('name').value
+            }
+            console.log('chandfed by:' + changed_by)
+            today = new Date()
+            var changed_dateTime = today
             
-            <br><br><br>sorry david it jayin fault<br><br><br>
-        Gee Jayin you bad <br>
-            <br><br>
-            <br><br>
-            !!!!see jayin i rollback!!!
-            <br><br>
+
+            //console.log(text)
+            let jason = {
+                "_id": id,
+                "text": text,
+                "changed_by": changed_by,
+                "changed_dateTime": changed_dateTime,
+                "switch": localStorage.getItem('switch')
+            }
+            console.log(jason)
+            result = await callWebservice('saveText', jason)
+            parsed = JSON.parse(result)
+            textt = parsed.text
+            finale = decodeURIComponent(textt)
+            console.log('finale:' + finale)
+            document.getElementById("text").value = finale
+            document.getElementById('span').innerHTML = parsed.time
+            document.getElementById('spann').innerHTML = parsed.changed_by
+            processFunction(documentg.getElementById('text'))
+        }
+
+        async function loadFunction() {
+            processFunction('s')
+            if(localStorage.getItem('switch') == null) {
+                localStorage.setItem('switch', 'in 8A')
+            }
+            Logout = document.getElementById('logout')
+            nameLS = localStorage.getItem('name')
+            if (nameLS == null) {
+                Logout.style.display = 'none'
+            }
+            var x = document.getElementById('divSave')
+            var z = document.getElementById('text')
+            var dz = document.getElementById('dtext')
+            dz.style.display = 'inline-block'
+            z.style.display = 'none'
+            x.style.display = 'none'
+
+            /*var texts = document.getElementById("text").value
+            var text = encodeURIComponent(texts)
+            var id = localStorage.getItem("id")
+            var changed_by = document.getElementById('name').value
+            console.log('chandfed by:' + changed_by)
+            d = new Date()
+            var changed_dateTime = d.getTime()*/
+
+            //console.log(text)
+            /*let jason = {
+                "_id": id,
+                "text": text,
+                "changed_by": changed_by,
+                "changed_dateTime": changed_dateTime
+            }*/
+            //console.log(jason)
+            jason = {
+                'switch': localStorage.getItem('switch')
+            }
+            result = await callWebservice('loadText', jason);
+            parsed = JSON.parse(result)
+            console.log(result)
+            finale = decodeURIComponent(parsed.text)
+            document.getElementById("text").value = finale
+            Presult = processFunction(finale)
+            document.getElementById("dtext").innerHTML = Presult
+            localStorage.setItem("id", parsed.id)
+            document.getElementById('span').innerHTML = parsed.time
+            document.getElementById('spann').innerHTML = parsed.changed_by
+            if(localStorage.getItem('switch') == 'in 8B') {
+                document.getElementById('8Aswitch').innerHTML = '8B agenda'
+            }
+        }
+
+        function changeFunction() {
+            var x = document.getElementById('divChange')
+            x.style.display = "none"
+            var y = document.getElementById("divSave")
+            y.style.display = "inline-block"
+            z = document.getElementById('text')
+            z.disabled = false
+
+        }
+
+        async function callWebservice(path, body) {
+            var port = ''
+            if(window.location.port != '') {
+                port = ':' + window.location.port
+            }
+            let url = window.location.protocol + '//' + window.location.hostname + port + '/' + path
+            console.log(url)
+            //let response = await fetch(url);
+            let response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
+            });
+            let result = await response.text();
+            console.log(result)
+            return (result)
+        }
+
+        async function signIn() {
+
+            username = encodeURIComponent(document.getElementById('name').value)
+                password = encodeURIComponent(document.getElementById('pass').value)
+            let jason = {
+                'name': username,
+                'password': password
+            }
+            console.log(jason)
+            result = await callWebservice('login', jason);
+            console.log(result)
+            if (result == 'Yes') {
+                $('#exampleModalCenter').modal('hide')
+                changeFunction()
+
+                checkbox = document.getElementById('checkbox')
+                if (checkbox.checked == true) {
+                    localStorage.setItem('name', username)
+                        Logout = document.getElementById('logout')
+                    Logout.style.display = 'inline'
+                }
+                /*changeFunction();
+                console.log('yes')
+                //$('#exampleModalCenter').modal('hide')
+                $('#exampleModalCenter').modal('hide')
+                console.log('checked')
+                localStorage.setItem("checked", 'checked')
+            } else {
+                document.getElementById('pass').select()
+                const element = document.getElementById('exampleModalCenter');
+                element.classList.add('animate__animated', 'animate__shakeX');
+                $('#exampleModalCenter').modal('show')*/
+
+            }
+        }
+        
+        function unlockFunction() {   
+            nameLS = localStorage.getItem("name")
+            var dz = document.getElementById('dtext')
+            var z = document.getElementById('text')
+            dz.style.display = 'none'
+            z.style.display = 'inline-block'
+            if (nameLS != null) {
+                changeFunction()
+            } else {
+
+
+                $('#exampleModalCenter').modal('show')
+            }
+
+        }
+
+        function registerFunction() {
+            $('#registerModal').modal('show')
+            $('#exampleModalCenter').modal('hide')
+            //$('.toast').toast('show')
+
+
             
-            big fancy upgrade <br><br><br>
-            quality == annex radiator<br><br><br><br>
-        OK we do things like this now because Jayin poopy doody:((((((( <br><br>
-        math: test friday <br><br>
-        science: discussion ongoing <br><br>
-        health: test tomorow <br><br>
-        civics and careers test soon too <br><br>
-        computers: something due soon <br><br>
-        music: idk figure it out<br><br>
-        french: 1-11 in onenote <br><br>
-        english: discussion thursday, inclass essay sooon too <br><br>
-        memorize drama <br><br>
-        <p>
-    <body>
-<html>
+
+
+        }
+
+        
+        async function logoutFunction() {
+            localStorage.removeItem("name")
+            Logout = document.getElementById('logout')
+            Logout.style.display = 'none'
+
+            //hide logout 
+        }
+
+
+
+        function submitFunction() {
+            $('#registerModal').modal('hide')
+            var email = document.getElementById('email').value
+            var username = document.getElementById('nameR').value
+            var password = document.getElementById('passR').value
+            console.log(username)
+            let jason = {
+                'email': email,
+                'username': username,
+                'password': password                
+            }
+            console.log(jason)
+            callWebservice('register', jason)
+
+            //save credentials in database section for registration.
+            //send email to me of credentials
+            //display toast of "will be approved or declined".
+            //in email to me, there will be an aprrove button and a decline button.
+            //if approve is pressed, save the credentials in the users database, remove the credentials from the temp. section and send an email back saying that they have been approved. 
+            //if decline is pressed, remove the credentials from the temp. section. 
+        }
+
+        function listFunction() {
+            $('#listModal').modal('show')
+            result = callWebservice('list')
+            console.log(result)
+            x = document.getElementById('listForm')
+            x = result
+            
+        }
+
+        async function switchFunction() {
+            if(localStorage.getItem('switch') == 'in 8A') {
+                x = 'in 8B'
+            }else{
+                x = 'in 8A'
+            }
+            console.log(x) 
+            let jason = {
+                'switch': x
+            }
+            result = await callWebservice('loadText', jason)
+            console.log('swktch')
+            console.log(result)
+            parsed = JSON.parse(result)
+            decode = decodeURIComponent(parsed.text)
+            console.log(decode)
+            console.log(parsed.time)
+            document.getElementById('span').innerHTML = parsed.time
+            document.getElementById('spann').innerHTML = parsed.changed_by                
+            if(localStorage.getItem('switch') == 'in 8A') {//
+                document.getElementById('8Aswitch').innerHTML = '8B agenda'
+                localStorage.setItem('switch','in 8B')
+                console.log(decode)
+                document.getElementById('text').value = decode
+                Presult = processFunction(decode)
+                document.getElementById('dtext').innerHTML = Presult
+                z = document.getElementById('text')
+                dz = document.getElementById('dtext')
+                z.style.display = 'none'
+                dz.style.display = 'inline-block'
+
+                
+               
+            }else{
+                document.getElementById('8Aswitch').innerHTML = '8A agenda'
+                localStorage.setItem('switch', 'in 8A')
+                console.log(decode)
+                document.getElementById('text').value = decode
+                Presult = processFunction(decode)
+                document.getElementById('dtext').innerHTML = Presult
+                z = document.getElementById('text')
+                dz = document.getElementById('dtext')
+                z.style.display = 'none'
+                dz.style.display = 'inline-block'
+
+            }
+        }
+        // will change special characters in text to HTML
+        function processFunction(text) {
+            console.log('process functin is workinfs')
+            var b = text.indexOf('*');
+            while(b >= 0){  
+                b = text.indexOf('*')
+                if(b >= 0 ){
+                    text = text.replace('*', '<b>')
+                }
+                b = text.indexOf('*')
+                if(b >= 0){
+                    text = text.replace('*', '</b>')
+                }
+                console.log(b)
+                console.log(text)
+            }
+            var c = text.indexOf('#b')
+            while(c >= 0){ 
+                c = text.indexOf('#b')
+                if(c >= 0){
+                    text = text.replace('#b', '<span class="blue">')
+                }
+                if(c >= 0){
+                    text = text.replace('#b', '</span class="blue">')
+                }
+                console.log(c)
+                console.log(text)
+            }
+            var r = text.indexOf('#r')
+            while(r >= 0){ 
+                r = text.indexOf('#r')
+                if(r >= 0){
+                    text = text.replace('#r', '<span class="red">')
+                }
+                if(r >= 0){
+                    text = text.replace('#r', '</span class="red">')
+                }
+                console.log(r)
+                console.log(text)
+            }
+            var y = text.indexOf('#y')
+            while(y >= 0){ 
+                y = text.indexOf('#y')
+                if(y >= 0){
+                    text = text.replace('#y', '<span class="yellow">')
+                }
+                if(y >= 0){
+                    text = text.replace('#y', '</span class="yellow">')
+                }
+                console.log(y)
+                console.log(text)
+            }
+            var g = text.indexOf('#g')
+            while(g >= 0){ 
+                g = text.indexOf('#g')
+                if(g >= 0){
+                    text = text.replace('#g', '<span class="green">')
+                }
+                if(g >= 0){
+                    text = text.replace('#g', '</span class="green">')
+                }
+                console.log(g)
+                console.log(text)
+            }
+            var p = text.indexOf("#p")
+            while(p >= 0){
+                p = text.indexOf("#p");
+                if(p >= 0){
+                    text = text.replace("#p", '<span class="purple">')
+                }
+                if(p >= 0){
+                    text = text.replace('#p', '</span class="purple">')
+                }
+                console.log(p)
+                console.log(text)
+            }
+            var i = text.indexOf("_")
+            while(i >= 0){
+                i = text.indexOf("_");
+                if(i >= 0){
+                    text = text.replace("_", '<i>')
+                }
+                if(i >= 0){
+                    text = text.replace('_', '</i>')
+                }
+                console.log(i)
+                console.log(text)
+            }   
+            return(text);
+            console.log(text)
+        }
+    </script>
+
+</head>
+
+<body class="text-center" onload="loadFunction()">
+    
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+         
+        <header class="masthead mb-auto ">
+            <div class="row align-items-center">
+                <h1 class="col-sm-8 offset-sm-2">
+                    THE HUB
+                    <svg width="0.3em" height="0.3em" viewBox="0 0 16 16" class="bi bi-circle-fill align-baseline" fill="red" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="8" cy="8" r="8" />
+                      </svg>
+                </h1>
+                <span class="col-sm-2">
+                    <a href="#" id="logout" onclick="logoutFunction()">Logout</a>
+                </span>
+            </div>
+        </header>
+
+        
+
+        <main role="main" class="cover">     
+                
+            <div class="cover-area text-right">
+                <h4 class="cover-heading text-right"></h4>
+                    <span id="8Aswitch">8A agenda</span>
+                    <a href="#" onclick="switchFunction()">(switch)</a>
+                    <textarea class="lead form-control area" cols="100" rows="18" id="text" disabled></textarea>
+                    <div class="text-left" id="dtext"></div>
+                    <span class="small" >changed by </span> <span class="small" id='spann'> </span> <span class="small" id="span"></span>
+            </div>
+            <div class="button" id="divSave" style="display: none;">
+                <p class="lead"><a href="#" class="btn btn-lg btn-secondary" onclick="saveFunction()"
+                        id="saveButton">Save</a></p>
+            </div>
+            <div class="button" id="divChange">
+                <p class="lead"><a href="#" class="btn btn-lg btn-secondary" id="changeButton"
+                        onclick="unlockFunction()">Unlock</a></p>
+            </div>
+            <!--<div class="button" id="list">
+                <p class="lead"><a href="#" class="btn btn-lg btn-secondary" id="changeButton"
+                        onclick="listFunction()">List</a></p>
+            </div>-->
+            
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Login</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <input type="text" required placeholder="Username" id="name"> <br>
+                                <input type="password" required placeholder="Password" id="pass"> <br>
+                                <input type="checkbox"  name="checkbox" id="checkbox" class="text-left"> Remember me
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" onclick="signIn()">Login</button>
+                            <button type="button" class="btn btn-secondary" onclick="registerFunction()">Register</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Register Modal-->
+            <div class="modal fade" id="registerModal" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Register</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <input type="email" required placeholder="E-mail" id="email">  <br>   
+                                <input type="text" required placeholder="Username" id="nameR"> <br>
+                                <input type="password" required placeholder="Password" id="passR"> <br>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" onclick="submitFunction()">Submit for approval</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--List Modal-->
+            <div class="modal fade" id="listModal" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">List</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="listForm">
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+            
+        </main> 
+
+
+        <footer class="mastfoot mt-auto">
+            <div class="inner" class="lead">
+                <div id="dfoot">'*' = <b>text</b>, '#b' =  <span class="blue">text</span>, '#r' = <span class="red">text</span>, '#y' = <span class="yellow">text</span>, '#g' = <span class="green">text</span>,  '#p' =  <span class="purple">text</span>, '_' = <i>text</i></div>
+            </div>
+        </footer>
+    </div>
+    
+</body>
+
+</html>
