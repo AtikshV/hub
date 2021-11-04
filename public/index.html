@@ -25,10 +25,7 @@
             var y = document.getElementById("divChange")
             y.style.display = "inline-block"
             var z = document.getElementById('text')
-            var dz = document.getElementById('dtext')
-            dz.style.display = 'inline-block'
             z.disabled = true
-            z.style.display = 'none'
 
             
             var texts = document.getElementById("text").value
@@ -62,11 +59,9 @@
             document.getElementById("text").value = finale
             document.getElementById('span').innerHTML = parsed.time
             document.getElementById('spann').innerHTML = parsed.changed_by
-            processFunction(documentg.getElementById('text'))
         }
 
         async function loadFunction() {
-            processFunction('s')
             if(localStorage.getItem('switch') == null) {
                 localStorage.setItem('switch', 'in 8A')
             }
@@ -76,10 +71,6 @@
                 Logout.style.display = 'none'
             }
             var x = document.getElementById('divSave')
-            var z = document.getElementById('text')
-            var dz = document.getElementById('dtext')
-            dz.style.display = 'inline-block'
-            z.style.display = 'none'
             x.style.display = 'none'
 
             /*var texts = document.getElementById("text").value
@@ -106,8 +97,6 @@
             console.log(result)
             finale = decodeURIComponent(parsed.text)
             document.getElementById("text").value = finale
-            Presult = processFunction(finale)
-            document.getElementById("dtext").innerHTML = Presult
             localStorage.setItem("id", parsed.id)
             document.getElementById('span').innerHTML = parsed.time
             document.getElementById('spann').innerHTML = parsed.changed_by
@@ -184,12 +173,9 @@
         
         function unlockFunction() {   
             nameLS = localStorage.getItem("name")
-            var dz = document.getElementById('dtext')
-            var z = document.getElementById('text')
-            dz.style.display = 'none'
-            z.style.display = 'inline-block'
             if (nameLS != null) {
                 changeFunction()
+
             } else {
 
 
@@ -275,13 +261,6 @@
                 localStorage.setItem('switch','in 8B')
                 console.log(decode)
                 document.getElementById('text').value = decode
-                Presult = processFunction(decode)
-                document.getElementById('dtext').innerHTML = Presult
-                z = document.getElementById('text')
-                dz = document.getElementById('dtext')
-                z.style.display = 'none'
-                dz.style.display = 'inline-block'
-
                 
                
             }else{
@@ -289,105 +268,7 @@
                 localStorage.setItem('switch', 'in 8A')
                 console.log(decode)
                 document.getElementById('text').value = decode
-                Presult = processFunction(decode)
-                document.getElementById('dtext').innerHTML = Presult
-                z = document.getElementById('text')
-                dz = document.getElementById('dtext')
-                z.style.display = 'none'
-                dz.style.display = 'inline-block'
-
             }
-        }
-        // will change special characters in text to HTML
-        function processFunction(text) {
-            console.log('process functin is workinfs')
-            var b = text.indexOf('*');
-            while(b >= 0){  
-                b = text.indexOf('*')
-                if(b >= 0 ){
-                    text = text.replace('*', '<b>')
-                }
-                b = text.indexOf('*')
-                if(b >= 0){
-                    text = text.replace('*', '</b>')
-                }
-                console.log(b)
-                console.log(text)
-            }
-            var c = text.indexOf('#b')
-            while(c >= 0){ 
-                c = text.indexOf('#b')
-                if(c >= 0){
-                    text = text.replace('#b', '<span class="blue">')
-                }
-                if(c >= 0){
-                    text = text.replace('#b', '</span class="blue">')
-                }
-                console.log(c)
-                console.log(text)
-            }
-            var r = text.indexOf('#r')
-            while(r >= 0){ 
-                r = text.indexOf('#r')
-                if(r >= 0){
-                    text = text.replace('#r', '<span class="red">')
-                }
-                if(r >= 0){
-                    text = text.replace('#r', '</span class="red">')
-                }
-                console.log(r)
-                console.log(text)
-            }
-            var y = text.indexOf('#y')
-            while(y >= 0){ 
-                y = text.indexOf('#y')
-                if(y >= 0){
-                    text = text.replace('#y', '<span class="yellow">')
-                }
-                if(y >= 0){
-                    text = text.replace('#y', '</span class="yellow">')
-                }
-                console.log(y)
-                console.log(text)
-            }
-            var g = text.indexOf('#g')
-            while(g >= 0){ 
-                g = text.indexOf('#g')
-                if(g >= 0){
-                    text = text.replace('#g', '<span class="green">')
-                }
-                if(g >= 0){
-                    text = text.replace('#g', '</span class="green">')
-                }
-                console.log(g)
-                console.log(text)
-            }
-            var p = text.indexOf("#p")
-            while(p >= 0){
-                p = text.indexOf("#p");
-                if(p >= 0){
-                    text = text.replace("#p", '<span class="purple">')
-                }
-                if(p >= 0){
-                    text = text.replace('#p', '</span class="purple">')
-                }
-                console.log(p)
-                console.log(text)
-            }
-            var i = text.indexOf("_")
-            while(i >= 0){
-                i = text.indexOf("_");
-                if(i >= 0){
-                    text = text.replace("_", '<i>')
-                }
-                if(i >= 0){
-                    text = text.replace('_', '</i>')
-                }
-                console.log(i)
-                console.log(text)
-            }   
-            return(text);
-            console.log(text)
         }
     </script>
 
@@ -405,11 +286,7 @@
                         <circle cx="8" cy="8" r="8" />
                       </svg>
                 </h1>
-                <small class="col-sm-8 offset-sm-2">
-                    Administered by Jason(Adin) while Batkish is away. 
-                    <svg width="0.3em" height="0.3em" viewBox="0 0 16 16" class="bi bi-circle-fill align-baseline " fill="red" xmlns="http://www.w3.org/2000/svg">
-                      </svg>
-                    </small>                <span class="col-sm-2">
+                <span class="col-sm-2">
                     <a href="#" id="logout" onclick="logoutFunction()">Logout</a>
                 </span>
             </div>
@@ -417,14 +294,15 @@
 
         
 
-        <main role="main" class="cover">     
+        <main role="main" class="cover h-100 ">     
                 
             <div class="cover-area text-right">
                 <h4 class="cover-heading text-right"></h4>
                     <span id="8Aswitch">8A agenda</span>
                     <a href="#" onclick="switchFunction()">(switch)</a>
-                    <textarea class="lead form-control area" cols="100" rows="18" id="text" disabled></textarea>
-                    <div class="text-left" id="dtext"></div>
+                    <textarea class="lead form-control area" cols="100" rows="18" id="text" disabled>
+
+                    </textarea>
                     <span class="small" >changed by </span> <span class="small" id='spann'> </span> <span class="small" id="span"></span>
             </div>
             <div class="button" id="divSave" style="display: none;">
@@ -516,7 +394,7 @@
 
         <footer class="mastfoot mt-auto">
             <div class="inner" class="lead">
-                <div id="dfoot">'*' = <b>text</b>, '#b' =  <span class="blue">text</span>, '#r' = <span class="red">text</span>, '#y' = <span class="yellow">text</span>, '#g' = <span class="green">text</span>,  '#p' =  <span class="purple">text</span>, '_' = <i>text</i></div>
+                <p>Text customization coming soon!</p>
             </div>
         </footer>
     </div>
