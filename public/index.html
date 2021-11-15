@@ -386,6 +386,18 @@
                 console.log(i)
                 console.log(text)
             }   
+            var z = text.indexOf("<")
+            while(i >= 0){
+                i = text.indexOf("<");
+                if(i >= 0){
+                    text = text.replace("<", ' ')
+                }
+                if(i >= 0){
+                    text = text.replace('<', ' ')
+                }
+                console.log(z)
+                console.log(text)
+            }   
             return(text);
             console.log(text)
         }
