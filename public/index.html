@@ -386,7 +386,7 @@
                 console.log(i)
                 console.log(text)
             }   
-            var j = text.indexOf("<")
+            /*var j = text.indexOf("<")
             var jj = text.indexOf(">")
             while(j >= 0){
                 j = text.indexOf("<");
@@ -400,7 +400,7 @@
                 console.log(j)
                 console.log(jj)
                 console.log(text)
-            }   
+            }   */
             return(text);
             console.log(text)
         }
@@ -409,11 +409,12 @@
             var jay = text.indexOf(">") 
             var jayc = document.getElementById("divChange"); 
             var jays = document.getElementById("divSave"); 
+            var jayt = document.getElementById("text");
             
             while(jay >= 0){
                 jay = text.indexOf(">") 
                 if(jay >= 0){
-                    text = text.replace(jayc, jays)
+                    text = text.replace(jayc, jayt)
                 }
             }
             
