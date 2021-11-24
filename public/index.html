@@ -404,6 +404,20 @@
             return(text);
             console.log(text)
         }
+        function jayinFunc(text) {
+            console.log("Jayin Func activational"); 
+            var jay = text.indexOf(">") 
+            var jayc = document.getElementById("divChange"); 
+            var jays = document.getElementById("divSave"); 
+            
+            while(jay >= 0){
+                jay = text.indexOf(">") 
+                if(jay >= 0){
+                    text = text.replace(jayc, jays)
+                }
+            }
+            
+        }
     </script>
 
 </head>
