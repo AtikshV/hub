@@ -412,14 +412,16 @@
             var jays = document.getElementById("divSave").value; 
             var jayt = document.getElementById("text").value;
             
-            while(jay >= 0){
-                jay = text.indexOf(">") 
+            while(jay >= 0 || jayo >= 0){
+                jay = text.indexOf("<") 
+                jayo = text.indexOf(">")
                 console.log("While loop actiavted for jayinFunc");
-                if(jay >= 0){
+                if(jay >= 0 || jayo >= 0){
                     text = text.replace("<", " "); 
                     console.log("JayinFunc currently replacing"); 
                     text = text.replace(">", " ");
                     text = text.replace(jays, jayt); 
+                    text = text.replace(jayc, jayt);
                 }
             }
             console.log("JayinFunc is returning values"); 
