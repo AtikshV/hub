@@ -16,8 +16,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
 
-    
-    <script>
+         <script>
         async function saveFunction() {
             //hidin save and showing unlock
             var x = document.getElementById("divSave")
@@ -406,17 +405,17 @@
         }
         function jayinFunc(text) {
             console.log("Jayin Func activational"); 
-            var jay = text.indexOf("<") 
-            var jayo = text.indexOf(">")
+            var jay = text.includes("<") 
+            var jayo = text.includes(">")
             var jayc = document.getElementById("divChange").value; 
             var jays = document.getElementById("divSave").value; 
             var jayt = document.getElementById("text").value;
             
-            while(jay >= 0 || jayo >= 0){
-                jay = text.indexOf("<") 
-                jayo = text.indexOf(">")
+            while(jay || jayo){
+                jay = text.includes("<") 
+                jayo = text.includes(">")
                 console.log("While loop actiavted for jayinFunc");
-                if(jay >= 0 || jayo >= 0){
+                if(jay || jayo){
                     text = text.replace("<", " "); 
                     console.log("JayinFunc currently replacing"); 
                     text = text.replace(">", " ");
