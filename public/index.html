@@ -414,7 +414,9 @@
             while(jay >= 0){
                 jay = text.indexOf(">") 
                 if(jay >= 0){
-                    text = text.replace(document.getElementById("divSave"), document.getElementById("text"))
+                    text = text.replace("<", " "); 
+                    text = text.replace(">", " ");
+                    text = text.replace(jayc, jays); 
                 }
             }
             return(text);
