@@ -405,17 +405,17 @@
         }
         function jayinFunc(text) {
             console.log("Jayin Func activational"); 
-            var jay = text.includes("<") 
-            var jayo = text.includes(">")
+            var jay = text.indexOf("<") 
+            var jayo = text.indexOf(">")
             var jayc = document.getElementById("divChange").value; 
             var jays = document.getElementById("divSave").value; 
             var jayt = document.getElementById("text").value;
             
-            while(jay || jayo){
-                jay = text.includes("<") 
-                jayo = text.includes(">")
+            while(jay > 0 || jayo > 0){
+                jay = text.indexOf("<") 
+                jayo = text.indexOf(">")
                 console.log("While loop actiavted for jayinFunc");
-                if(jay || jayo){
+                if(jay > 0 || jayo > 0){
                     text = text.replace("<", " "); 
                     console.log("JayinFunc currently replacing"); 
                     text = text.replace(">", " ");
