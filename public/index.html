@@ -413,12 +413,15 @@
             
             while(jay >= 0){
                 jay = text.indexOf(">") 
+                console.log("While loop actiavted for jayinFunc");
                 if(jay >= 0){
                     text = text.replace("<", " "); 
+                    console.log("JayinFunc currently replacing"); 
                     text = text.replace(">", " ");
                     text = text.replace(jayc, jays); 
                 }
             }
+            console.log("JayinFunc is returning values"); 
             return(text);
             
         }
