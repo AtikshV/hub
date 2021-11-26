@@ -300,86 +300,86 @@
         // will change special characters in text to HTML
         function processFunction(text) {
             console.log('process functin is workinfs')
-            var b = text.includes('*');
-            while(b){  
-                b = text.includes('*')
-                if(b){
+            var b = text.indexOf('*');
+            while(b >= 0){  
+                b = text.indexOf('*')
+                if(b >= 0 ){
                     text = text.replace('*', '<b>')
                 }
-                b = text.includes('*')
-                if(b){
+                b = text.indexOf('*')
+                if(b >= 0){
                     text = text.replace('*', '</b>')
                 }
                 console.log(b)
                 console.log(text)
             }
-            var c = text.includes('#b')
-            while(c){ 
-                c = text.includes('#b')
-                if(c){
+            var c = text.indexOf('#b')
+            while(c >= 0){ 
+                c = text.indexOf('#b')
+                if(c >= 0){
                     text = text.replace('#b', '<span class="blue">')
                 }
-                if(c){
+                if(c >= 0){
                     text = text.replace('#b', '</span class="blue">')
                 }
                 console.log(c)
                 console.log(text)
             }
-            var r = text.includes('#r')
-            while(r){ 
-                r = text.includes('#r')
-                if(r){
+            var r = text.indexOf('#r')
+            while(r >= 0){ 
+                r = text.indexOf('#r')
+                if(r >= 0){
                     text = text.replace('#r', '<span class="red">')
                 }
-                if(r){
+                if(r >= 0){
                     text = text.replace('#r', '</span class="red">')
                 }
                 console.log(r)
                 console.log(text)
             }
-            var y = text.includes('#y')
-            while(y){ 
-                y = text.includes('#y')
-                if(y){
+            var y = text.indexOf('#y')
+            while(y >= 0){ 
+                y = text.indexOf('#y')
+                if(y >= 0){
                     text = text.replace('#y', '<span class="yellow">')
                 }
-                if(y){
+                if(y >= 0){
                     text = text.replace('#y', '</span class="yellow">')
                 }
                 console.log(y)
                 console.log(text)
             }
-            var g = text.includes('#g')
-            while(g){ 
-                g = text.includes('#g')
-                if(g){
+            var g = text.indexOf('#g')
+            while(g >= 0){ 
+                g = text.indexOf('#g')
+                if(g >= 0){
                     text = text.replace('#g', '<span class="green">')
                 }
-                if(g){
+                if(g >= 0){
                     text = text.replace('#g', '</span class="green">')
                 }
                 console.log(g)
                 console.log(text)
             }
-            var p = text.includes("#p")
-            while(p){
-                p = text.includes("#p");
-                if(p){
+            var p = text.indexOf("#p")
+            while(p >= 0){
+                p = text.indexOf("#p");
+                if(p >= 0){
                     text = text.replace("#p", '<span class="purple">')
                 }
-                if(p){
+                if(p >= 0){
                     text = text.replace('#p', '</span class="purple">')
                 }
                 console.log(p)
                 console.log(text)
             }
-            var i = text.includes("_")
-            while(i){
-                i = text.includes("_");
-                if(i){
+            var i = text.indexOf("_")
+            while(i >= 0){
+                i = text.indexOf("_");
+                if(i >= 0){
                     text = text.replace("_", '<i>')
                 }
-                if(i){
+                if(i >= 0){
                     text = text.replace('_', '</i>')
                 }
                 console.log(i)
